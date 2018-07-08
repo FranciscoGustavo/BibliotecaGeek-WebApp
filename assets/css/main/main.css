@@ -1,0 +1,92 @@
+.relative-header {
+  box-shadow: 0 0 3px rgba(0,0,0,0.5);
+}
+
+.btn-menu {
+  background-color: transparent;
+}
+
+.slider {
+	width: 100%;
+  max-height: 400px;
+  overflow: hidden;
+  background: red;
+}
+
+.slider .slide-container {
+  width: 400%;
+  animation: change 10s infinite alternate;
+}
+
+.slider .slide-item {
+  width: 25%;
+  background-color: blue;
+}
+
+@keyframes change {
+    0%,20% {margin-left: 0;}
+    25%, 45% {margin-left: -100%}
+    50%, 70% {margin-left: -200%}
+    75%, 100% {margin-left: -300%}
+}
+
+.post {
+  width: 95%;
+  max-width: 270px;
+  margin-bottom: 1rem;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+}
+
+.post img {
+  height: 170px;
+}
+
+.social-media {
+  display: flex;
+  justify-content: space-around;
+}
+
+.social-media a {
+  color: #000;
+}
+
+@media screen and (min-width: 30em) {
+  footer{
+    background-color: yellow;
+  }
+}
+
+@media screen and (min-width: 37.5em) {
+  .header {
+    position: static;
+    left: 0;
+    top: 0;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    background-color: #43a5f5;
+    box-shadow: 0 0 0;
+    transition: none;
+    z-index: auto;
+  }
+
+  .header nav {
+    max-width: 1200px;
+  }
+
+  .menu li a{
+    display: inline;
+    padding: 1rem;
+  }
+
+  footer{
+    background-color: yellow;
+  }
+}
+
+@media screen and (min-width: 48em) {
+
+  footer{
+    background-color: red;
+  }
+}
