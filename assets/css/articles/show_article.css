@@ -1,0 +1,229 @@
+.article-container {
+  width: 100%;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 0 3px rgba(0,0,0,0.3);
+}
+
+.article-img-container {
+  position: relative;
+  width: 100%;
+  height: 150px;
+  overflow: hidden;
+}
+
+.article-img-container img {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.border-button {
+  border-bottom: solid 3px rgba(0, 0, 0, 0.3);
+}
+
+.border-top {
+  border-top: solid 3px rgba(0, 0, 0, 0.3);
+}
+
+.paragraph .paragraph-title {
+  padding-bottom: 1rem;
+}
+
+.paragraph .paragraph-content {
+  line-height: 1.5;
+}
+
+.article-container .image figure {
+  position: relative;
+  max-width: 700px;
+  margin: auto;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.article-container .image figcaption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(rgba(89,89,89,.5) 0%, rgba(28,28,28,1) 100%);
+  color: #FFF;
+  font-weight: bold;
+}
+
+.article-container .top-p-none{
+  padding-top: 0;
+}
+
+.recommended-container {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.recommended, .information-to-article  {
+  width: 100%;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  box-shadow: 0 0 3px rgba(0,0,0,0.3);
+}
+
+.outhor {
+  margin-bottom: 7px;
+}
+
+.outhor .outhor-image {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.outhor a {
+  text-decoration: none;
+}
+
+.outhor a > h4, .details > h4, .share > h4 {
+  border-bottom: solid 1px rgba(0,0,0,0.6);
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: #222;
+}
+
+.outhor .outhor-image  {
+  margin-left: 20px;
+}
+
+.outhor .outhor-name  {
+  margin-left: 10px;
+}
+
+.outhor .outhor-name h5 {
+  color: #323232;
+}
+
+.outhor .outhor-name h6 {
+  font-size: 0.9rem;
+  font-weight: normal;
+  color: #545454;
+}
+
+.details div {
+  padding-left: 20px;
+  margin-bottom: 7px;
+  font-size: .9rem;
+}
+
+.details .icon {
+  display: inline-block;
+  width: 20px;
+}
+
+.social-network a {
+  margin: 10px;
+  cursor: pointer;
+}
+
+.social-network a i {
+  font-size: 1.5rem;
+  color: #323232;
+}
+
+.social-network a i.isfavorite {
+  color: red;
+}
+
+.recommended .article-card{
+  box-shadow: 0 0 0 0;
+  border: solid 1px rgba(0,0,0,0.3);
+}
+
+.p-top-none {
+  padding-top: 0px;
+}
+
+.comment {
+  margin-bottom: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 3px rgba(0,0,0,0.3);
+}
+
+.comment .header-comment {
+  background-color: rgba(0,0,0,0.1);
+}
+
+.header-comment .user-image {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.body-comment{
+  padding-left: 20px;
+}
+
+.comment-form .body-comment textarea{
+  display: block;
+}
+
+.body-comment textarea{
+  display: none;
+}
+
+.body-comment textarea.active {
+  display: block;
+}
+
+.body-comment p.disable {
+  display: none;
+}
+
+.input-form {
+  margin-bottom: 10px;
+}
+
+.input-form input, .text-form textarea, .body-comment textarea {
+  width: 99%;
+  padding: 1rem;
+  border: solid 1px #777;
+  border-radius: 5px;
+  font-size: 1.2rem;
+}
+
+.footer-comment {
+  padding: 1rem;
+  padding-top: 0px;
+  text-align: right;
+}
+
+.footer-comment button {
+  border-radius: 5px;
+  border: 0;
+  padding: .5rem 1rem;
+  font-weight: bold;
+  color: #FFF;
+  box-shadow: 0 0 3px rgba(0,0,0,0.3);
+}
+
+@media screen and (min-width: 75em) {
+  .article-container, .comments {
+    width: 70%;
+  }
+
+  .recommended-container {
+    width: 30%;
+    margin-top: 0px;
+  }
+
+  .recommended, .information-to-article {
+    width: 85%;
+    margin-left: 15%;
+  }
+
+}

@@ -1,0 +1,21 @@
+/*=======================================================
+  TITULO DE CADA SECCION DE ARTICULOS
+=======================================================*/
+.the-last, .most-seen {
+  width: 80%;
+  margin: auto;
+  margin-bottom: 15px;
+  border-bottom: solid 2px rgba(0, 0, 0, 0.4);
+}
+
+@media screen and (min-width: 37.5em) {
+  .the-last, .most-seen {
+    width: 95%;
+  }
+}
+
+@media screen and (min-width: 75em){
+  .the-last, .most-seen {
+    width: 1200px;
+  }
+}

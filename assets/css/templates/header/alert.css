@@ -1,0 +1,111 @@
+/*=======================================================
+  MENSAJE DE ALERTA
+======================================================-*/
+.alert {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 85%;
+  max-width: 350px;
+  transform: translate(-50%,-50%);
+  border-radius: 5px;
+  padding-top: .5rem;
+  background-color: #fff;
+  box-shadow: 0 0 3px rgba(0,0,0,0.5);
+  z-index: 10000;
+}
+
+.alert .image-status {
+  padding: 1rem;
+}
+
+.alert .container-circle {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+.alert .message-title, .alert .message, .alert .actions-buttons {
+  padding-top: 0;
+  font-weight: bold;
+}
+
+.alert .message {
+  font-weight: normal;
+}
+
+.alert .message p .email {
+  font-weight: bold;
+}
+
+.actions-buttons button {
+  padding: 0.5rem 0.7rem;
+  border-radius: 5px;
+  border: 0;
+  font-weight: bold;
+}
+
+.alert:not(.active) {
+  transform: scale(0);
+}
+
+/*=======================================================
+  MENSAJE DE OK
+=======================================================*/
+.ok .container-circle {
+  border: solid 3px rgba(0,143,57,0.4);
+}
+
+.ok .container-circle i{
+  font-size: 6rem;
+  color: #008F39;
+}
+
+.ok .actions-buttons button {
+  background-color: #008F39;
+  color: #FFF;
+}
+
+/*=======================================================
+  MENSAJE DE ERROR
+=======================================================*/
+.error .container-circle {
+  border: solid 3px rgba(187,26,51,0.4);
+}
+
+.error .container-circle i{
+  font-size: 6rem;
+  color: #bb1a33;
+}
+
+.error .actions-buttons button {
+  background-color: #bb1a33;
+  color: #FFF;
+}
+
+/*=======================================================
+  MENSAJE DE WAR-NING
+=======================================================*/
+.warning .container-circle {
+  border: solid 3px rgba(255,204,0,0.4);
+}
+
+.warning .container-circle i{
+  font-size: 6rem;
+  color: #FFCC00;
+}
+
+.warning .actions-buttons button {
+  background-color: #FFCC00;
+  color: #000;
+}
+
+/*=======================================================
+  ALERTA ESTA ACTIVA
+=======================================================*/
+.alert.active{
+  animation-name: show-modal;
+  animation-duration: 0.25s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}

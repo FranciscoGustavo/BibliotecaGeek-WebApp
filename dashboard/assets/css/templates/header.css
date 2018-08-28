@@ -1,0 +1,42 @@
+.page-main{
+  width: 100vw;
+  height: 100vh;
+}
+
+/*=======================================================
+  HEADER
+=======================================================*/
+header, .menu-bars, main {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+header {
+  width: 100%;
+  display: flex;
+  padding: 1rem;
+  background-color: #F44336;
+  z-index: 2000;
+}
+
+header .bars-contetnt, header .user-main {
+  width: 50%;
+}
+
+header .user-main {
+  text-align: right;
+}
+
+header .logo {
+  display: none;
+}
+
+.menu-bars {
+  transition: all 0.2s;
+  z-index: 1000;
+}
+
+.menu-bars.active {
+  left: 0;
+}

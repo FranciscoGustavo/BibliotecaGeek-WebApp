@@ -1,0 +1,235 @@
+.tabs-container {
+/*  box-shadow: 0px 2px 5px rgba(0,0,0,.16), 0px 2px 10px rgba(0,0,0,.12);*/
+  width: 100%;
+}
+
+.tabs-control {
+  display: flex;
+  flex-direction: row;
+}
+
+.tabs-control a {
+  border: solid 1px #eee;
+  padding: 0.5rem 0.7rem;
+  text-decoration: none;
+  color: #666;
+  cursor: pointer;
+}
+
+.tabs-control a.active {
+  position: relative;
+
+}
+
+.tabs-control a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 5px;
+  background-color: #AAA;
+}
+
+.tabs {
+  overflow: hidden;
+  position: relative;
+}
+
+.tabs .container {
+  white-space: nowrap;
+  left: 0px;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+.tabs .container * {
+  white-space: normal;
+}
+
+.tab {
+  display: inline-block;
+  width: 100%;
+  padding: 1em;
+  border-top: solid 1px #eee;
+  margin-right: -4px;
+  vertical-align: top;
+}
+
+.portada, .user-info, .config {
+  max-width: 500px;
+}
+
+.portada {
+  position: relative;
+}
+
+.portada figure {
+  position: relative;
+  width: 100%;
+  height: 140px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.portada-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.user-image-tab {
+  position: absolute;
+  bottom: -30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  border: solid 1px rgba(0,0,0,0);
+  box-shadow: 0 0 5px rgba(0,0,0,0.6);
+}
+
+.user-info {
+  margin-top: 55px;
+}
+
+.info-username, .info-email, .info-password, .info-time {
+  margin: 6px 0px;
+}
+
+.info-username h4.disable, .info-email h4.disable, .info-username input.disable, .info-email input.disable {
+  display: none;
+}
+
+.info-username h4.active, .info-email h4.active, .info-username input.active, .info-email input.active {
+  display: block;
+}
+
+.info-password.disable {
+  display: none;
+}
+
+.info-password.active {
+  display: block;
+}
+
+.info-username > input, .info-email > input, .info-password > input, .info-time > input {
+  display: block;
+  width: 100%;
+  border: 0;
+  text-align: center;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: solid #000 1px;
+}
+
+.btn-edit-profile, .btn-save-profile {
+  margin: auto;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  letter-spacing: 1.5px;
+  font-weight: bold;
+  color: #FFF;
+  box-shadow: 0 0 3px rgba(0,0,0,0.5);
+}
+
+.btn-edit-profile.disable, .btn-save-profile.disable {
+  display: none;
+}
+
+.btn-edit-profile.active, .btn-save-profile.active {
+  display: block;
+}
+
+.config {
+  border-radius: 5px;
+  box-shadow: 0 0 3px rgba(0,0,0,0.5);
+  overflow: hidden;
+}
+
+.notifications, .news {
+  margin: 0.5rem 0;
+}
+
+.notifications > input, .news > input {
+  display: none;
+}
+
+.notifications > label, .news > label {
+  position: relative;
+  background-color: rgba(200,200,200,0.5);
+  padding: 0.5rem 1rem;
+  padding-left: 2.5rem;
+  border-radius: 5px;
+  transition: all .2s;
+}
+
+.notifications > label:before, .news > label:before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 6px;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: solid rgba(187,26,51,1) 2px;
+  opacity: 1;
+  transition: all .2s;
+}
+
+.notifications input:checked+label, .news input:checked+label {
+  padding-left: 1rem;
+  background-color: rgba(0,143,57,0.4);
+}
+
+.notifications input:checked+label::before, .news input:checked+label::before {
+  opacity: 0;
+}
+
+
+.btn-edit-portada, .btn-edit-image {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0,0,0,.2);
+  color: #FFF;
+  border: 0;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
+.btn-edit-image {
+  left: 50%;
+  bottom: 0%;
+  width: 60px;
+  height: 60px;
+  justify-content: center;
+  align-items: center;
+  transform: translateX(-50%);
+  border-radius: 50%;
+}
+
+.btn-edit-portada.disable, .btn-edit-image.disable{
+  display: none;
+}
+
+.btn-edit-portada.active{
+  display: block;
+}
+
+.btn-edit-image.active{
+  display: flex;
+}
+
+.logup-social-media {
+  margin: auto;
+  padding: 0.5rem 1rem;
+  border: 0;
+  border-radius: 5px;
+  letter-spacing: 1.5px;
+  font-weight: bold;
+  box-shadow: 0 0 3px rgba(0,0,0,0.5);
+}

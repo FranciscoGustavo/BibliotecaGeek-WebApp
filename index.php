@@ -1,21 +1,15 @@
-<!DOCTYPE html>
-<html lang="es-mx">
-  <head>
-    <?php require_once 'views/helpers/head.php'  ?>
-  </head>
-  <body>
-    <?php require_once 'views/helpers/header.php';  ?>
+<?php
+  include_once "models/rutes.php";
+  include_once "models/conection.php";
+  include_once "models/article_model.php";
+  include_once "models/user_model.php";
 
-    <main class="container-fluid">
-      <?php require_once 'views/main/relative-header.php'; ?>
-      <section class="container">
-        <?php  require_once 'views/main/slider.php' ?>
-        <?php require_once 'views/main/posts.php' ?>
-      </section>
-      <?php require_once 'views/helpers/footer.php'; ?>
-    </main>
+  include_once "controllers/template_controller.php";
+  include_once "controllers/user_controller.php";
+  include_once "controllers/article_controller.php";
 
-    <script src="assets/js/main.js"> </script>
+  include_once "extensions/PHPMailer/PHPMailerAutoload.php";
+  include_once "extensions/vendor/autoload.php";
 
-  </body>
-</html>
+  $template = new TemplateController();
+  $template -> template();

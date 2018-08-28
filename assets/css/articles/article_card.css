@@ -1,0 +1,62 @@
+/*=======================================================
+  ESTILOS DE CADA TARJETA DE ARTICULO
+=======================================================*/
+.article-card {
+  position: relative;
+  width: 95%;
+  max-width: 250px;
+  height: 260px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 0 3px rgba(0,0,0,0.3);
+}
+
+.article-card .image-container {
+  position: relative;
+  height: 125px;
+  overflow: hidden;
+}
+
+.article-card .image-container img {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.article-card a {
+  text-decoration: none;
+}
+
+.article-card .article-title h3 {
+  font-size: 1.25rem;
+  color: #323232;
+}
+
+.article-card .outhor a {
+  color: #666;
+}
+
+.article-card .outhor {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding-top: 7px;
+  border-top: solid 1px rgba(0, 0, 0, 0.4);
+}
+
+/*
+.article-card h3 {
+  margin-top: -6px;
+  color: #111;
+  font-weight: normal;
+}
+
+.article-card p {
+  margin: 7px auto;
+  color: #333;
+  font-weight: bold;
+}
+
+
+*/

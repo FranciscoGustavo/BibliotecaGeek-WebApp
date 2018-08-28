@@ -1,0 +1,67 @@
+/*=======================================================
+  MENU LATERAL
+=======================================================*/
+.menu-bars {
+  left: -100%;
+  width: 280px;
+  height: 100vh;
+  background-color: #37474F;
+}
+
+.menu-bars {
+  padding-top: 60px;
+}
+
+.menu-bars img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.user-bars {
+  padding: 1rem;
+  background-color: #546E7A;
+  text-align: center;
+}
+
+.user-bars p {
+  text-align: left;
+  margin: 0.1rem 0;
+  font-size: .9rem;
+  color: rgba(255,255,255,0.6);
+}
+
+.menu {
+  padding: 1rem 0;
+}
+
+.menu ul {
+  list-style: none;
+}
+
+.menu ul li {
+  margin: 0;
+  padding: 1rem;
+}
+
+.menu ul li a {
+  display: block;
+  font-size: 1.1rem;
+  text-decoration: none;
+  color: #FFF;
+}
+
+.menu ul li i {
+  margin-right: 10px;
+}
+
+.menu ul li:hover {
+    background-color: #546E7A;
+}
+
+
+@media screen and (min-width: 75em){
+  .menu-bars {
+    left: 0;
+  }
+}
