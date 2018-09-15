@@ -1,25 +1,79 @@
 <?php
+  /*=======================================================
+    VARIABLES DE LAS RUTAS PRINCIPALES
+  =======================================================*/
+  session_start();
   $home = Rutes::mainRute();
   $dashboard = Rutes::dashboardRute();
-  session_start();
+
+  /*=======================================================
+    DATA OF OPEN GRAPH
+  =======================================================*/
+  $rutesOpen = array();
+
+
+  if (isset($_GET['rute'])){
+    $rutesOpen = explode("/", $_GET["rute"]);
+    $ruteOpen = $rutesOpen[0];
+
+  } else {
+    $ruteOpen = "home";
+  }
+
+  $openGraph = TemplateController::findOpenGraph($ruteOpen);
+
+  if (!$openGraph) {
+    $ruteOpen = "home";
+    $openGraph = TemplateController::findOpenGraph($ruteOpen);
+  }
+
+  //var_dump($openGraph);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="es-mx">
   <head>
     <!--=====================================================
-      ETIQUETAS META
+      METADATOS
     ======================================================-->
     <meta charset="UTF-8">
-    <meta name="description" content="Free Web tutorials">
-    <meta name="keywords" content="HTML,CSS,XML,JavaScript">
-    <meta name="author" content="Francisco Hidalgo">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Biblioteca Geek</title>
+    <meta name="title" content="<?php printf($openGraph["title"]); ?>">
+    <meta name="description" content="<?php printf($openGraph["description"]); ?>">
+    <meta name="keywords" content="<?php printf($openGraph["keywords"]); ?>">
+    <meta name="author" content="Francisco Hidalgo">
+
+    <title><?php printf($openGraph["title"]); ?></title>
+
+    <!--=====================================================
+      OPEN GRAPH GOOGLE
+    ======================================================-->
+    <meta property="og:title" content="<?php printf($openGraph["title"]); ?>"/>
+    <meta property="og:image" content="<?php printf($dashboard.$openGraph["cover"]); ?>"/>
+    <meta property="og:description" content="<?php printf($openGraph["description"]); ?>"/>
+
+    <!--=====================================================
+      OPEN GRAPH FACEBOOK
+    ======================================================-->
+    <meta property="og:type" content="webSite"/>
+    <meta property="og:url" content="<?php printf($home.$openGraph["rute"]); ?>"/>
+    <meta property="og:title" content="<?php printf($openGraph["title"]); ?>"/>
+    <meta property="og:description" content="<?php printf($openGraph["description"]); ?>"/>
+    <meta property="og:image" content="<?php printf($dashboard.$openGraph["cover"]); ?>"/>
+
+    <!--=====================================================
+      OPEN GRAPH TWITTER
+    ======================================================-->
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="@nytimesbits"/>
+    <meta name="twitter:creator" content="@nickbilton"/>
 
     <!--=====================================================
       ETIQUETAS LINK
     ======================================================-->
+    <link rel="shortcut icon" href="<?php printf($home."assets/images/bibliotecageekico.png") ?>" />
     <?php require_once 'helpers/links.php'; ?>
 
   </head>
@@ -32,7 +86,7 @@
     <!--=====================================================
       CONTENIDO DINAMICO DE LA PAGINA
     ======================================================-->
-    <main class="container-fluid">
+    <main class="container-fluid height-full">
       <?php
       $rutes = array();
       $item = null;
@@ -78,6 +132,8 @@
         } else if($rutes[0] == "verificar" || $rutes[0] == "salir" || $rutes[0] == "perfil"){
           require_once 'views/users/'.$rutes[0].'.php';
 
+        } else if ($rutes[0] == "home") {
+          //require_once 'views/articles/index_articles.php';
         } else {
           require_once 'views/templates/error404.php';
         }
@@ -87,12 +143,13 @@
         require_once 'views/articles/index_articles.php';
       }
       ?>
+      <!--=====================================================
+        PIE DE PAGINA
+      ======================================================-->
+      <?php require_once 'views/templates/footer.php';  ?>
     </main>
 
-    <!--=====================================================
-      PIE DE PAGINA
-    ======================================================-->
-    <?php require_once 'views/templates/footer.php';  ?>
+
 
     <!--=====================================================
       SCRPTS (JAVASCRIPT)

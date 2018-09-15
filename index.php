@@ -1,6 +1,7 @@
 <?php
   include_once "models/rutes.php";
   include_once "models/conection.php";
+  include_once "models/template_model.php";
   include_once "models/article_model.php";
   include_once "models/user_model.php";
 

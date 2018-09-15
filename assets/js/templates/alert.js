@@ -2,21 +2,23 @@
 class AlertModal {
   constructor(txtTitle, txtMessage, txtButton, type, callback) {
     /* INICIALIZAMOS LOS MODULOS DONDE SE INSERTARAN LOS DATOS */
+    this.type = type;
     this.alert = document.querySelector(".alert");
+    this.closed = this.alert.querySelector(".closeModal");
     this.image = this.alert.querySelector(".image-status .container-circle");
     this.title = this.alert.querySelector(".message-title");
     this.message = this.alert.querySelector(".message");
     this.button = this.alert.querySelector(".actions-buttons");
 
-    this.backShadow = document.querySelector(".background-shadow");
-    this.body = document.querySelector("body");
-
-    console.log(this.image);
-
-    this.type = type;
-
     this.insertData(txtTitle, txtMessage, txtButton);
     this.showAlertModal(callback);
+    this.bindEvents();
+  }
+
+  bindEvents(){
+    this.closed.addEventListener("click", ()=>{
+      this.alert.parentNode.classList.remove("active");
+    });
   }
 
   /* SE INCERTAN LOS DATOS */
@@ -34,20 +36,15 @@ class AlertModal {
     }
 
   }
+
   /* MUESTRA LA ALERTA */
   showAlertModal(callback){
+    this.alert.parentNode.classList.add("active");
     this.alert.classList.add(this.type);
-    this.alert.classList.add("active");
-
-    this.showBackgroundShadow();
 
     this.button.querySelector("button").addEventListener("click",()=>{
-      callback();
+      callback(this.alert);
     });
   }
 
-  showBackgroundShadow(){
-    this.backShadow.classList.add("active");
-    this.body.classList.add("no-scroll");
-  }
 }

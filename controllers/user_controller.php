@@ -10,11 +10,9 @@ class UserController
       VALIDA LOS DATOS INGRESADOS
     =============================================*/
     if(isset($_POST["logupUserTerms"])){
-
-      if(preg_match('/^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/', $_POST["logupUsername"]) &&
+      if(preg_match('/^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9 ]+$/', $_POST["logupUsername"]) &&
          preg_match('/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/', $_POST["logupEmail"]) &&
          preg_match('/^[a-zA-Z0-9]+$/', $_POST["logupPassword"])){
-
            /*=============================================
              ENCRIPTAR CONTRASEÑA
              ENCRIPTAR CORREO ELECTRONICO
@@ -45,75 +43,53 @@ class UserController
              /*=============================================
              VERIFICACIÓN CORREO ELECTRÓNICO
              =============================================*/
-
-             date_default_timezone_set("America/Bogota");
-
-             $url = Rutes::mainRute();
-
-             $mail = new PHPMailer;
-
-             $mail->CharSet = 'UTF-8';
-
-             $mail->isMail();
-
-             $mail->setFrom('hidalgofco520@gmail.com', 'Biblioteca Geek');
-
-             $mail->addReplyTo('hidalgofco520@gmail.com', 'Biblioteca Geek');
-
-             $mail->Subject = "Por favor verifique su dirección de correo electrónico";
-
-             $mail->addAddress($_POST["logupEmail"]);
-
-             $mail->msgHTML('<a href="'.$url.'verificar/'.$encryptedEmail.'" target="_blank" style="text-decoration:none">');
-
-             $envio = $mail->Send();
+            $home = "http://localhost/bibliotecageek/";
+            $message = '<a href="'.$home.'verificar/'.$encryptedEmail.'" target="_blank" style="text-decoration:none">Validar</a>';
+            $envio = self::sendEmail($_POST["logupEmail"], "Cuenta registrada", $message);
 
              if(!$envio){
-               return printf("<script>
-                 window.addEventListener('load', ()=>{
-                   title = '¡Upss!';
-                   message = 'Tu cuenta ha sido creada, pero no se pudo enviar el correo de confirmacion ponte en contacto con nuestro servicio tecnico';
-                   new AlertModal(title, message, 'Cerrar','warning',()=>{
-                     history.back();
-                   });
-                 });
-              </script>");
+               /*=============================================
+                 LA CUENTA SE CREO PERO NO SE ENVIO CORREO DE VERIFICACIÓN
+               =============================================*/
+               $type = "'warning'";
+               $title = "'¡Upss!'";
+               $message = "'Tu cuenta ha sido creada, pero no se pudo enviar el correo de confirmacion ponte en contacto con nuestro servicio tecnico'";
+               $button = "'Aceptar'";
+               $callback = "history.back();";
+               return self::alert($type, $title, $message, $button, $callback);
              }else {
-               return printf("<script>
-                window.addEventListener('load', ()=>{
-                  title = '¡Genial!';
-                  message = 'Tu cuenta a sido creada con exito, porfavor revisa tu correo para confirmarla';
-                  new AlertModal(title, message, 'Aceptar','ok', ()=>{
-                    history.back();
-                  });
-                });
-              </script>");
+               /*=============================================
+                 LA CUENTA SE CREO CON EXITO
+               =============================================*/
+               $type = "'ok'";
+               $title = "'¡Genial!'";
+               $message = "'Tu cuenta a sido creada con exito, porfavor revisa tu correo para confirmarla'";
+               $button = "'Aceptar'";
+               $callback = "history.back();";
+               return self::alert($type, $title, $message, $button, $callback);
              }
-
-
-
            } else {
-             return printf("<script>
-               window.addEventListener('load', ()=>{
-                 title = '¡Error!';
-                 message = 'No se pudo crear la cuenta porfavor pongase en contacto con nuestro servicio tecnico';
-                 new AlertModal(title, message, 'Aceptar','warning', ()=>{
-                   history.back();
-                 });
-               });
-            </script>");
-           }
+             /*=============================================
+               lA CUENTA NO SE PUDO CREAR EN LA BASE DE DATOS
+             =============================================*/
+             $type = "'error'";
+             $title = "'¡Error!'";
+             $message = "'No se pudo crear la cuenta porfavor pongase en contacto con nuestro servicio tecnico'";
+             $button = "'Aceptar'";
+             $callback = "history.back();";
+             return self::alert($type, $title, $message, $button, $callback);
+          }
 
       } else {
-        return printf("<script>
-          window.addEventListener('load', ()=>{
-            title = '¡Atención!';
-            message = 'No se aceptan caracteres especiales';
-            new AlertModal(title, message, 'Aceptar','warning', ()=>{
-              history.back();
-            });
-          });
-       </script>");
+        /*=============================================
+          CARACTERES EN LOS DATOS DEL USUARIO
+        =============================================*/
+        $type = "'warning'";
+        $title = "'¡Atención!'";
+        $message = "'No se aceptan caracteres especiales'";
+        $button = "'Aceptar'";
+        $callback = "history.back();";
+        return self::alert($type, $title, $message, $button, $callback);
       }
 
     }
@@ -156,16 +132,20 @@ class UserController
 
            if($res['email'] == $_POST['loginEmail'] && $res['password'] == $encryptedPassword){
              if ($res['checked'] == 1) {
-               return printf("<script>
-                 window.addEventListener('load', ()=>{
-                   title = '¡Ups...!';
-                   message = 'Al parecer a un no has verificado tu cuenta revisa tu correo o bandeja de spam';
-                   new AlertModal(title, message, 'Aceptar','warning', ()=>{
-                     history.back();
-                   });
-                 });
-              </script>");
-             } else {
+               /*=============================================
+                 lA CUENTA AUN NO ES VALIDADA
+               =============================================*/
+               $type = "'warning'";
+               $title = "'¡Ups...!'";
+               $message = "'Al parecer a un no has verificado tu cuenta revisa tu correo o bandeja de spam'";
+               $button = "'Aceptar'";
+               $callback = "history.back();";
+               return self::alert($type, $title, $message, $button, $callback);
+
+               } else {
+               /*=============================================
+                 SE CREAN LAS VARIABLES DE SESION
+               =============================================*/
                $_SESSION["checkSession"] = "OK";
                $_SESSION["id"] = $res['user_id'];
                $_SESSION["username"] = $res['username'];
@@ -176,7 +156,7 @@ class UserController
                $_SESSION["mode"] = $res['mode'];
                $_SESSION["notifications"] = $res['notifications'];
                $_SESSION["news"] = $res['news'];
-               $_SESSION["time"] = self::timesTampData($res['registration_date']);
+               $_SESSION["time"] = TemplateController::timesTampData($res['registration_date']);
 
                return printf("<script>
                 window.location  = localStorage.getItem('currentRute');
@@ -184,27 +164,27 @@ class UserController
 
              }
            } else {
-              return printf("<script>
-                window.addEventListener('load', ()=>{
-                  title = 'Error!';
-                  message = 'Porfavor revise que el correo o la contraseña sean correctos';
-                  new AlertModal(title, message, 'Aceptar','error', ()=>{
-                    history.back();
-                  });
-                });
-              </script>");
+             /*=============================================
+               EL CORREO O LA CONTRASEÑA NO CONCIDEN
+             =============================================*/
+             $type = "'error'";
+             $title = "'¡Error!'";
+             $message = "'Porfavor revise que el correo o la contraseña sean correctos'";
+             $button = "'Aceptar'";
+             $callback = "history.back();";
+             return self::alert($type, $title, $message, $button, $callback);
            }
 
       } else {
-        return printf("<script>
-          window.addEventListener('load', ()=>{
-            title = '¡Atención!';
-            message = 'No se aceptan caracteres especiales';
-            new AlertModal(title, message, 'Aceptar','warning', ()=>{
-              history.back();
-            });
-          });
-       </script>");
+        /*=============================================
+          CARACTERES ESPECIALES
+        =============================================*/
+        $type = "'warning'";
+        $title = "'¡Atención!'";
+        $message = "'No se aceptan caracteres especiales'";
+        $button = "'Aceptar'";
+        $callback = "history.back();";
+        return self::alert($type, $title, $message, $button, $callback);
       }
     }
   }
@@ -214,7 +194,6 @@ class UserController
   =============================================*/
   public function forgotten(){
     if(isset($_POST["forgottenEmail"])){
-
 			if(preg_match('/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/', $_POST["forgottenEmail"])){
         /*=============================================
           GENERAR CONTRASEÑA ALEATORIA
@@ -248,99 +227,79 @@ class UserController
         $res = UserModel::findUser($item, $value);
 
         if ($res) {
-          $id = $res["user_id"];
-					$item = "password";
-					$value = "'".$encrypted."'";
+          if ($res["mode"] == "direct") {
+            $id = $res["user_id"];
+    				$item = "password";
+    				$value = "'".$encrypted."'";
 
-          /*=============================================
-            ACTUALIZA LA CONTRASEÑA
-          =============================================*/
-					$res2 = UserModel::updateUser($id, $item, $value);
-          if ($res2 == "OK") {
             /*=============================================
-            CAMBIO DE CONTRASEÑA
+              ACTUALIZA LA CONTRASEÑA
             =============================================*/
-            date_default_timezone_set("America/Bogota");
+  					$res2 = UserModel::updateUser($id, $item, $value);
+            if ($res2 == "OK") {
+              /*=============================================
+              CAMBIO DE CONTRASEÑA
+              =============================================*/
+              $message = "<h1>".$newPassword."</h1>";
+              $envio = self::sendEmail($_POST["forgottenEmail"], "Solicitud de cambio de contraseña", $message);
 
-            $mail = new PHPMailer;
-
-            $mail->CharSet = 'UTF-8';
-
-            $mail->isMail();
-
-            $mail->setFrom('cursos@tutorialesatualcance.com', 'Tutoriales a tu Alcance');
-
-            $mail->addReplyTo('cursos@tutorialesatualcance.com', 'Tutoriales a tu Alcance');
-
-            $mail->Subject = "Solicitud de nueva contraseña";
-
-            $mail->addAddress($_POST['forgottenEmail']);
-
-            $mail->msgHTML($newPassword);
-
-            $envio = $mail->Send();
-
-            if(!$envio){
-              return printf("<script>
-                window.addEventListener('load', ()=>{
-                  title = '¡Error!';
-                  message = 'Hubo un error en su cambio de contraseña';
-                  new AlertModal(title, message, 'Aceptar','error', ()=>{
-                    history.back();
-                  });
-                });
-              </script>");
-            } else {
-              return printf("<script>
-                window.addEventListener('load', ()=>{
-                  title = '¡Exito!';
-                  message = '¡Por favor revise la bandeja de entrada o la carpeta de SPAM de su correo electrónico para su cambio de contraseña!';
-                  new AlertModal(title, message, 'Aceptar','ok', ()=>{
-                    history.back();
-                  });
-                });
-              </script>");
+              if(!$envio){
+                /*=============================================
+                  EL CORREO NO SE ENVIO PERO SI SE CAMBIO LA CONTRASEÑA
+                =============================================*/
+                $type = "'error'";
+                $title = "'¡Error!'";
+                $message = "'Hubo un error en su cambio de contraseña'";
+                $button = "'Aceptar'";
+                $callback = "history.back();";
+                return self::alert($type, $title, $message, $button, $callback);
+              } else {
+                /*=============================================
+                  EL CAMBIO DE CONTRASEÑA SE REALIZO CON EXITO
+                =============================================*/
+                $type = "'ok'";
+                $title = "'¡Exito!'";
+                $message = "'¡Por favor revise la bandeja de entrada o la carpeta de SPAM de su correo electrónico para su cambio de contraseña!'";
+                $button = "'Aceptar'";
+                $callback = "history.back();";
+                return self::alert($type, $title, $message, $button, $callback);
+              }
             }
+          } else {
+            /*=============================================
+              EL CORREO FUE REGISTRADO CON UNA RED SOCIAL
+            =============================================*/
+            $type = "'warning'";
+            $title = "'¡Error!'";
+            $message = "'El correo fue registrado con alguna red social'";
+            $button = "'Aceptar'";
+            $callback = "history.back();";
+            return self::alert($type, $title, $message, $button, $callback);
           }
 
         } else {
-          return printf("<script>
-            window.addEventListener('load', ()=>{
-              title = '¡Error!';
-              message = 'El correo no exitse';
-              new AlertModal(title, message, 'Aceptar','error', ()=>{
-                history.back();
-              });
-            });
-          </script>");
+          /*=============================================
+            EL CORREO NO FUE ENCONTRADO EN LA BASE DE DATOS
+          =============================================*/
+          $type = "'error'";
+          $title = "'¡Error!'";
+          $message = "'El correo no existe en nuestra base de datos'";
+          $button = "'Aceptar'";
+          $callback = "history.back();";
+          return self::alert($type, $title, $message, $button, $callback);
         }
       } else {
-        return printf("<script>
-          window.addEventListener('load', ()=>{
-            title = '¡Alerta!';
-            message = 'Escriba correctamente la contraseña no se aceptan caracteres especiales';
-            new AlertModal(title, message, 'Aceptar','warning', ()=>{
-              history.back();
-            });
-          });
-        </script>");
+        /*=============================================
+          EN CASO QUE EL CORREO TRAIGA CARACTERES ESPECIALES
+        =============================================*/
+        $type = "'warning'";
+        $title = "'¡Alerta!'";
+        $message = "'Escriba correctamente la contraseña no se aceptan caracteres especiales'";
+        $button = "'Aceptar'";
+        $callback = "history.back();";
+        return self::alert($type, $title, $message, $button, $callback);
       }
     }
-  }
-
-  /*=============================================
-    CONVIERTE LA FECHA
-  =============================================*/
-  static public function timesTampData($fecha){
-    $timestamp = strtotime($fecha);
-    $meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-
-    $dia = date('d', $timestamp);
-    $mes = date('m', $timestamp) - 1;
-    $year = date('Y', $timestamp);
-
-    $fecha = "$dia/" . $meses[$mes] . "/$year";
-    return $fecha;
   }
 
   /*=============================================
@@ -354,31 +313,48 @@ class UserController
 
     $resFindRepet =  UserModel::findUser($item, $value);
 
+    /*=============================================
+      BUSCAMOS QUE LA CUENTA YA EXISTA Y SU METODO DE
+      REGISTRO SEA DIFERENTE A FACEBOOK O GOOGLE
+    =============================================*/
     if ($resFindRepet) {
       if ($resFindRepet['mode'] != $data['mode']) {
-        return printf("<script>
-          window.addEventListener('load', ()=>{
-            title = '¡ERROR!!';
-            message = 'El correo electrónic, ya está registrado en el sistema con un método diferente a Google!';
-            new AlertModal(title, message, 'Cerrar','error',()=>{
-              history.back();
-            });
-          });
-       </script>");
+        /*=============================================
+          LA CUENTA SE CREO CON UN METODO DIFERENTE A REDES SOCIALES
+        =============================================*/
+        $type = "'error'";
+        $title = "'¡ERROR!'";
+        $message = "'El correo electrónico, ya está registrado en el sistema con un método diferente a ".$data['mode']."'";
+        $button = "'Aceptar'";
+        $callback = "history.back();";
+        return self::alert($type, $title, $message, $button, $callback);
        $emailRepet = false;
       }
       $emailRepet = true;
     } else {
+      /*=============================================
+        SI LA CUENTA NO EXISTE LA CREAMOS
+      =============================================*/
       $res = UserModel::logup($data);
     }
 
+    /*=============================================
+      SI EL CORREO YA EXISTE Y SE CREO CON GOOGLE
+      O FACEBOOK O YA SE CREO UNA CUENTA NUEVA
+    =============================================*/
     if($emailRepet || $res == "OK"){
 
+      /*=============================================
+        BUSCAMOS LA CUENTA Y CREAMOS LAS SESIONES
+        DEPENDIENDO EL MODO DE REGISTRO.
+      =============================================*/
       $resFind =  UserModel::findUser($item, $value);
 
       if ($resFind['mode'] == "facebook") {
+        /*=============================================
+          MODO FCEBOOK
+        =============================================*/
         session_start();
-
          $_SESSION["checkSession"] = "OK";
          $_SESSION["id"] = $resFind['user_id'];
          $_SESSION["username"] = $resFind['username'];
@@ -389,11 +365,13 @@ class UserController
          $_SESSION["mode"] = $resFind['mode'];
          $_SESSION["notifications"] = $resFind['notifications'];
          $_SESSION["news"] = $resFind['news'];
-         $_SESSION["time"] = self::timesTampData($resFind['registration_date']);
+         $_SESSION["time"] = $resFind['registration_date'];
 
          return "OK";
       } else if ($resFind['mode'] == "google") {
-
+        /*=============================================
+          MODO GOOGLE
+        =============================================*/
          $_SESSION["checkSession"] = "OK";
          $_SESSION["id"] = $resFind['user_id'];
          $_SESSION["username"] = $resFind['username'];
@@ -404,7 +382,7 @@ class UserController
          $_SESSION["mode"] = $resFind['mode'];
          $_SESSION["notifications"] = $resFind['notifications'];
          $_SESSION["news"] = $resFind['news'];
-         $_SESSION["time"] = self::timesTampData($resFind['registration_date']);
+         $_SESSION["time"] = $resFind['registration_date'];
 
          return "OK";
       } else {
@@ -446,17 +424,16 @@ class UserController
         $_SESSION["cover"] = $data['cover'];
         $_SESSION["email"] = $data['email'];
         $_SESSION["password"] = $data['password'];
-
-        return printf("<script>
-          window.addEventListener('load', ()=>{
-            title = '¡Genial!';
-            message = '¡Su cuenta se ah actualizado con exito!';
-            new AlertModal(title, message, 'Aceptar','ok',()=>{
-              history.back();
-            });
-          });
-       </script>");
-      }
+        /*=============================================
+          EL CORREO NO SE ENVIO PERO SI SE CAMBIO LA CONTRASEÑA
+        =============================================*/
+        $type = "'ok'";
+        $title = "'¡Genial!'";
+        $message = "'¡Su cuenta se ah actualizado con exito!'";
+        $button = "'Aceptar'";
+        $callback = "history.back();";
+        return self::alert($type, $title, $message, $button, $callback);
+     }
 
     }
   }
@@ -469,6 +446,7 @@ class UserController
       /*=============================================
         PRIMERO PREGUNTAMOS SI EXISTE OTRA IMAGEN EN LA BASE DE DATOS
       =============================================*/
+
       $directory = "assets/images/users/".$userId;
 
       if (!empty($imageDefault)) {
@@ -478,7 +456,6 @@ class UserController
       }else if(!file_exists($directory)){
         mkdir($directory, 0755);
       }
-
       /*=============================================
       GUARDAMOS LA IMAGEN EN EL DIRECTORIO
       =============================================*/
@@ -565,5 +542,43 @@ class UserController
   static public function findCommentsToUser($user_id){
     $res = UserModel::findCommentsToUser($user_id);
     return $res;
+  }
+
+  /*=============================================
+    ENVIA UN CORREO ELECTRONICO
+  =============================================*/
+  static private function sendEmail($emailDestination, $subject, $message){
+    date_default_timezone_set("America/Mexico_City");
+
+    $mail = new PHPMailer();
+
+    $mail->Username = "hidalgofco520@gmail.com";
+    $mail->Password = "hidalgolopez";
+
+    $mail->CharSet = 'UTF-8';
+    $mail->SMTPSecure = 'ssl';
+    $mail->Host = "smtp.gmail.com"; // GMail
+    $mail->Port = 465;
+    $mail->IsSMTP(); // use SMTP
+    $mail->SMTPAuth = true;
+    $mail->setFrom($mail->Username,"Biblioteca Geek");
+    $mail->AddAddress($emailDestination); // recipients email
+    $mail->Subject = $subject;
+    $mail->Body .= $message;
+    $mail->IsHTML(true);
+
+    return $mail->Send();
+  }
+
+  /*=============================================
+    MANDA UNA ALERTA EN PANTALLA
+  =============================================*/
+  static private function alert($type, $title, $message, $button, $callback){
+    $alert = "<script>";
+      $alert .= "window.addEventListener('load', ()=>{";
+        $alert .= "new AlertModal(".$title.",".$message.",".$button.",".$type.",()=>{".$callback."});";
+      $alert .= "})";
+    $alert .= "</script>";
+    return printf($alert);
   }
 }

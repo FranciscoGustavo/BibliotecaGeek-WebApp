@@ -1,3 +1,53 @@
+footer.footer {
+  padding-bottom: 90px;
+  background-color: #314A5C;
+  color: #F1F3F3;
+}
+
+footer.footer * {
+  font-weight: normal;
+}
+
+.footer h4, .footer h3 {
+  padding-bottom: 5px;
+}
+
+.footer p {
+  padding-bottom: 3px;
+}
+
+.footer a i, .footer a {
+  color: #F1F3F3;
+  text-decoration: none;
+}
+
+.bibliotecageek {
+  padding-bottom: 15px;
+}
+
+.logo-white {
+  width: 100px;
+}
+
+.icons a {
+  margin: 0 5px;
+}
+
+@media screen and (min-width: 37.5em) {
+  footer.footer {
+    padding-bottom: 1rem;
+  }
+
+  .bibliotecageek {
+    padding-bottom: 0px;
+  }
+
+  .bibliotecageek, .social-media {
+    margin: 0 2rem;
+  }
+}
+
+/*
 .background-shadow {
   position: fixed;
   top: 0;
@@ -63,4 +113,4 @@
 
 .no-scroll {
   overflow: hidden;
-}
+}*/

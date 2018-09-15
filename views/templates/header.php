@@ -60,58 +60,104 @@
 <!--=====================================================
   CABECERA RALATIVA SOLO ACTIVA EN DISPOSITIVOS MOBILES
 ======================================================-->
-<div class="menu-action p_5 flex jc-sp-between ai-center primary-color">
-  <div class="">
-    <button class="btn-menu no-border"><i class="icon-menu fas fa-bars font-2"></i></button>
+<div class="menu-action">
+  <div class=" flex jc-sp-between ai-center p_5">
+    <img class="logo" src="<?php printf($home."assets/images/bibliotecageek.png") ?>" alt="">
+    <button class="btn-menu no-border">
+      <i class="far fa-question-circle font-2"></i>
+    </button>
+
     <?php
       if (isset($_SESSION["checkSession"])) {
         if ($_SESSION["checkSession"] == "OK") {
     ?>
-    <button class="btn-user no-border"><i class="fas fa-user font-2"></i></button>
+    <!--button class="btn-user no-border"><i class="fas fa-user font-2"></i></button-->
     <?php
         }
       }
     ?>
   </div>
-  <p>LOGO</p>
 </div>
 
 <!--=====================================================
   CABECERA QUE CONTIENE EL MENU PRINCIPAL
 ======================================================-->
-<header class="header primary-color">
+<header class="header">
   <div class="container menu-container">
-    <nav class="xmd-flex xmd-jc-sp-between xmd-ai-center">
-      <p class="none xmd-block">LOGO</p>
-      <ul class="menu xmd-flex">
-        <li><a href="<?php printf($home); ?>" class="p-1">Home</a></li>
-        <li><a href="<?php printf($home); ?>articulos" class="p-1">Articulos</a></li>
-        <li><a href="https://www.youtube.com/channel/UC7bOCFjb5xZZj7YT-tmwd1g" target="_blank" class="p-1">Videos</a></li>
-        <li><a href="<?php printf($home); ?>about-me" class="p-1">Acerca</a></li>
+    <nav class="xmd-flex jc-sp-between ai-center">
+      <img class="logo none xmd-block" src="<?php printf($home."assets/images/bibliotecageek.png") ?>" alt="">
+
+      <ul class="menu col-xmd-9 col-md-7 col-xlg-6 col-lg-5">
+
+        <li class="home">
+          <a href="<?php printf($home); ?>" class="p-1">
+            <i class="fas fa-home font-1_5 i-b v-middle"></i>
+            <span class="i-b v-middle">Home</span>
+          </a>
+        </li>
+
+        <li class="blog">
+          <a href="<?php printf($home); ?>articulos" class="p-1">
+            <i class="far fa-newspaper font-1_5 i-b v-middle"></i>
+            <span class="i-b v-middle">Blog</span>
+          </a>
+        </li>
+
+        <li class="youtube">
+          <a href="https://www.youtube.com/channel/UC7bOCFjb5xZZj7YT-tmwd1g" target="_blank" class="p-1">
+            <i class="fab fa-youtube font-1_5 i-b v-middle"></i>
+            <span class="i-b v-middle">
+              Canal
+            </span>
+          </a>
+        </li>
 
         <?php
           if (isset($_SESSION["checkSession"])) {
             if ($_SESSION["checkSession"] == "OK") {
         ?>
-              <li class="btn-user none xmd-block user-image xmd-flex ai-center">
-              <?php
-                if($_SESSION['mode'] == "direct"){
-                  $photo = "assets/images/usersimage/default.jpg";
-                  if ($_SESSION['photo'] != "") {
-                    $photo = $_SESSION['photo'];
-                  }
-                  printf('<img src="' .$home.$photo. '" alt="">');
-                } else {
-                  printf('<img src="' .$_SESSION['photo']. '" alt="">');
-                }
-              ?>
+              <li class="user">
+
+                <a href="<?php printf($home."perfil"); ?>" class="p-1">
+                  <i class="fas fa-user-circle font-1_5 i-b v-middle"></i>
+                  <span class="i-b v-middle">
+                    Perfil
+                  </span>
+                </a>
+
+                <ul class="user-menu">
+
+                  <li>
+                  <?php
+                    if ($_SESSION['mode'] == "direct") {
+                      echo '<a class="p-1"  href="'.$home.'salir">';
+                    } else if ($_SESSION['mode'] == "facebook") {
+                      echo '<a class="p-1 btn-logout" href="'.$home.'salir">';
+                    } else {
+                      echo '<a class="p-1" href="'.$home.'salir">';
+                    }
+                  ?>
+                      <i class="fas fa-sign-out-alt font-1_5 i-b v-middle"></i>
+                      <span class="i-b v-middle">
+                        Salir
+                      </span>
+                    </a>
+                  </li>
+
+                </ul>
+
               </li>
         <?php
             }
           } else {
         ?>
-            <li><a href="#login" class="p-1 login">Iniciar Sesión</a></li>
-            <li><a href="#logup" class="p-1 logup">Registrate</a></li>
+            <li>
+              <a href="#login" class="p-1 login">
+                <i class="fas fa-sign-in-alt font-1_5 i-b v-middle"></i>
+                <span class="i-b v-middle">Entrar</span>
+             </a>
+             <a href="#logup" class="none logup"></a>
+            </li>
         <?php
           }
         ?>
@@ -120,7 +166,7 @@
     <?php
     if (isset($_SESSION["checkSession"])) {
       if ($_SESSION["checkSession"] == "OK") {
-        require_once "header/usermenu.php";
+        //require_once "header/usermenu.php";
       }
     }
     ?>
@@ -133,18 +179,15 @@
 
 <?php
 if (!isset($_SESSION["checkSession"])) {
+  // INICIO DE SESSION
+  require_once "header/login.php";
 
+  // REGISTRO DE USUARIO
+  require_once "header/logup.php";
 
-
+  // OLVIDO DE CONTRASEÑA
+  require_once "header/forgotten-your-password.php";
 }
-// INICIO DE SESSION
-require_once "header/login.php";
-
-// REGISTRO DE USUARIO
-require_once "header/logup.php";
-
-// OLVIDO DE CONTRASEÑA
-require_once "header/forgotten-your-password.php";
 
 // ALERTAS
 require_once "header/alert.php";

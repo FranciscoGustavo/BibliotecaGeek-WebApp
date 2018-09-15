@@ -1,7 +1,9 @@
 <?php
 include_once "../models/user_model.php";
-include_once "../controllers/user_controller.php";
 include_once "../models/conection.php";
+
+include_once "../controllers/user_controller.php";
+include_once "../controllers/template_controller.php";
 
 class UserAjax
 {
@@ -65,6 +67,45 @@ class UserAjax
     return printf($res);
   }
 
+  /*=============================================
+    CARGAR ARTICULOS FAVORITOS
+  =============================================*/
+  public function loadArticlesFavorites(){
+    $data = '';
+    $res = $favoritesArticles = UserController::findFavoritesArticles($this->userId);
+    $data = '[{}';
+    foreach ($res as $value) {
+      $data .= ',{';
+      $data .= '"name":"'.substr($value["first_name"], 0, 10).'"';
+      $data .= ',"title":"'.$value["title"].'"';
+      $data .= ',"image":"'.$value["image"].'"';
+      $data .= ',"url":"'.$value["url"].'"';
+      $data .= ',"time":"'.TemplateController::timesTampData($value["registration_date"]).'"';
+      $data .= '}';
+    }
+
+    $data .= ']';
+    return printf($data);
+  }
+
+  public function loadCommentsFavorites(){
+    $data = '';
+    $res = UserController::findCommentsToUser($this->userId);
+    $data = '[{}';
+    foreach ($res as $value) {
+      $data .= ',{';
+      $data .= '"commentid":"'.$value["comment_id"].'"';
+      $data .= ',"user":"'.$value["user_id"].'"';
+      $data .= ',"username":"'.$value["username"].'"';
+      $data .= ',"photo":"'.$value["photo"].'"';
+      $data .= ',"comment":"'.$value["comment"].'"';
+      $data .= '}';
+    }
+
+    $data .= ']';
+    return printf($data);
+  }
+
 }
 
 /*=============================================
@@ -96,4 +137,22 @@ class UserAjax
     $Ajax->value = $_POST['value'];
     $Ajax->userId = $_POST['user'];
     $Ajax ->changeNotifications();
+  }
+
+  /*=============================================
+    CARGA ARTICULOS FAVORITOS
+  =============================================*/
+  if (isset($_POST["loadFavorites"])) {
+    $Ajax = new UserAjax();
+    $Ajax ->userId = $_POST["userId"];
+    $Ajax ->loadArticlesFavorites();
+  }
+
+  /*=============================================
+    CARGA COMENTARIOS DEL USUARIO
+  =============================================*/
+  if (isset($_POST["loadComments"])) {
+    $Ajax = new UserAjax();
+    $Ajax ->userId = $_POST["userId"];
+    $Ajax ->loadCommentsFavorites();
   }

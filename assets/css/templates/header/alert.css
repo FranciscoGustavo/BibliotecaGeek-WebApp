@@ -1,20 +1,43 @@
 /*=======================================================
   MENSAJE DE ALERTA
 ======================================================-*/
-.alert {
+.container-alert.active {
+  display: flex;
   position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 85%;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 10000;
+}
+
+.alert {
+  position: relative;
+  width: 90%;
   max-width: 350px;
-  transform: translate(-50%,-50%);
   border-radius: 5px;
   padding-top: .5rem;
   background-color: #fff;
   box-shadow: 0 0 3px rgba(0,0,0,0.5);
-  z-index: 10000;
 }
 
+.alert .closeModal {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  border: 0;
+  padding: 0;
+  background-color: rgba(0,0,0,0);
+  cursor: pointer;
+}
+
+.alert .message-title, .alert .message, .alert .actions-buttons {
+  padding-top: 0;
+  font-weight: bold;
+}
+
+/* IMAGEN DE LA ALERTA */
 .alert .image-status {
   padding: 1rem;
 }
@@ -25,11 +48,7 @@
   border-radius: 50%;
 }
 
-.alert .message-title, .alert .message, .alert .actions-buttons {
-  padding-top: 0;
-  font-weight: bold;
-}
-
+/* MENSAJE DE LA ALERTA */
 .alert .message {
   font-weight: normal;
 }
@@ -38,15 +57,12 @@
   font-weight: bold;
 }
 
+/* BOTONES DE LA ALERTA */
 .actions-buttons button {
   padding: 0.5rem 0.7rem;
   border-radius: 5px;
   border: 0;
   font-weight: bold;
-}
-
-.alert:not(.active) {
-  transform: scale(0);
 }
 
 /*=======================================================
@@ -103,9 +119,6 @@
 /*=======================================================
   ALERTA ESTA ACTIVA
 =======================================================*/
-.alert.active{
-  animation-name: show-modal;
-  animation-duration: 0.25s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
+.container-alert {
+  display: none;
 }

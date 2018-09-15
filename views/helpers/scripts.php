@@ -2,9 +2,7 @@
   MODULOS DEL TEMPLATE
 ============================================-->
 <script src="<?php printf($home); ?>assets/js/templates/windowModal.js"> </script>
-<script src="<?php printf($home); ?>assets/js/templates/input.js"> </script>
 <script src="<?php printf($home); ?>assets/js/templates/alert.js"> </script>
-<script src="<?php printf($home); ?>assets/js/templates/usermenu.js"> </script>
 
 <!--============================================
   MODULOS DE LOS ARTICULOS

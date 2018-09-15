@@ -38,6 +38,9 @@ if (btnComment != null) {
 }
 
 function insertComment(){
+  if (photo.value == "") {
+    photo.value = "assets/images/users/default/default.jpg";
+  }
   var element = "<div class='comment'>";
 
     element += "<div class='header-comment p_5 flex ai-center'>";

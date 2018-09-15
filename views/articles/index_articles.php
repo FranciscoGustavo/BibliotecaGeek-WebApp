@@ -2,6 +2,7 @@
   ARTICULOS MOSTRADOS EN LA PAGINA DE INICIO
 ======================================================-->
 <div class="container">
+
   <!--=====================================================
     ARTICULOS MAS VISTOS
   ======================================================-->
@@ -27,7 +28,7 @@
                 <span><?php printf(substr($value["first_name"], 0, 13).'...'); ?></span>
               </a>
               <a href="#">
-                <span><?php printf(ArticleController::timesTampData($value["registration_date"])); ?></span>
+                <span><?php printf(TemplateController::timesTampData($value["registration_date"])); ?></span>
               </a>
             </div>
           </article>
@@ -61,11 +62,13 @@
                 <span><?php printf(substr($value["first_name"], 0, 13).'...'); ?></span>
               </a>
               <a href="#">
-                <span><?php printf(ArticleController::timesTampData($value["registration_date"])); ?></span>
+                <span><?php printf(TemplateController::timesTampData($value["registration_date"])); ?></span>
               </a>
             </div>
           </article>
         </div>
       <?php } ?>
+    </div>
   </div>
+
 </div>

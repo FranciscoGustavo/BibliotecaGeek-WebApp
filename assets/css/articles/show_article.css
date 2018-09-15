@@ -1,7 +1,7 @@
 .article-container {
-  width: 100%;
-  border-radius: 5px;
+  border-radius: 3px;
   overflow: hidden;
+  background-color: #FFF;
   box-shadow: 0 0 3px rgba(0,0,0,0.3);
 }
 
@@ -18,61 +18,23 @@
   transform: translateY(-50%);
 }
 
-.border-button {
-  border-bottom: solid 3px rgba(0, 0, 0, 0.3);
-}
-
-.border-top {
-  border-top: solid 3px rgba(0, 0, 0, 0.3);
-}
-
-.paragraph .paragraph-title {
-  padding-bottom: 1rem;
-}
-
-.paragraph .paragraph-content {
-  line-height: 1.5;
-}
-
-.article-container .image figure {
-  position: relative;
-  max-width: 700px;
-  margin: auto;
-  border-radius: 3px;
-  overflow: hidden;
-}
-
-.article-container .image figcaption {
+.article-container .article-title {
   position: absolute;
   bottom: 0;
-  left: 0;
-  display: flex;
   width: 100%;
-  padding: 0.5rem 1rem;
-  background: linear-gradient(rgba(89,89,89,.5) 0%, rgba(28,28,28,1) 100%);
+  padding: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  letter-spacing: 1px;
+  font-weight: normal;
   color: #FFF;
-  font-weight: bold;
 }
 
-.article-container .top-p-none{
-  padding-top: 0;
-}
-
-.recommended-container {
-  width: 100%;
-  margin-top: 20px;
-}
-
-.recommended, .information-to-article  {
-  width: 100%;
-  border-radius: 5px;
-  margin-bottom: 20px;
-  overflow: hidden;
-  box-shadow: 0 0 3px rgba(0,0,0,0.3);
+.info-article, .paragraph {
+  padding: 0.5rem 1rem;
 }
 
 .outhor {
-  margin-bottom: 7px;
+  margin-bottom: 0.5rem;
 }
 
 .outhor .outhor-image {
@@ -83,25 +45,13 @@
   overflow: hidden;
 }
 
-.outhor a {
-  text-decoration: none;
-}
-
-.outhor a > h4, .details > h4, .share > h4 {
-  border-bottom: solid 1px rgba(0,0,0,0.6);
-  margin-bottom: 10px;
-  font-size: 1rem;
-  color: #222;
-}
-
-.outhor .outhor-image  {
+.outhor .outhor-name {
   margin-left: 20px;
 }
 
-.outhor .outhor-name  {
-  margin-left: 10px;
+.outhor a {
+  text-decoration: none;
 }
-
 .outhor .outhor-name h5 {
   color: #323232;
 }
@@ -112,48 +62,28 @@
   color: #545454;
 }
 
+.paragraph-title {
+  margin-bottom: 0.5rem;
+}
+
 .details div {
-  padding-left: 20px;
-  margin-bottom: 7px;
-  font-size: .9rem;
+  margin: 0 1rem;
 }
 
-.details .icon {
-  display: inline-block;
-  width: 20px;
+.recommended-container {
+  margin-top: 20px;
 }
 
-.social-network a {
-  margin: 10px;
-  cursor: pointer;
-}
-
-.social-network a i {
-  font-size: 1.5rem;
-  color: #323232;
-}
-
-.social-network a i.isfavorite {
-  color: red;
-}
-
-.recommended .article-card{
-  box-shadow: 0 0 0 0;
-  border: solid 1px rgba(0,0,0,0.3);
-}
-
-.p-top-none {
-  padding-top: 0px;
+.comments {
+  margin-top: 20px;
 }
 
 .comment {
   margin-bottom: 20px;
   border-radius: 5px;
+  background-color: #FFF;
   box-shadow: 0 0 3px rgba(0,0,0,0.3);
-}
-
-.comment .header-comment {
-  background-color: rgba(0,0,0,0.1);
+  overflow: hidden;
 }
 
 .header-comment .user-image {
@@ -164,16 +94,54 @@
   overflow: hidden;
 }
 
-.body-comment{
-  padding-left: 20px;
+.comment .header-comment {
+  background-color: rgba(243,81,56,1);
+  color: #FFF;
+}
+
+.body-comment textarea {
+  display: none;
+  width: 100%;
+  height: 100px;
+  border: 0;
 }
 
 .comment-form .body-comment textarea{
   display: block;
 }
 
-.body-comment textarea{
-  display: none;
+.footer-comment {
+  padding-top: 0;
+}
+
+.footer-comment .container-buttons {
+  display: flex;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.footer-comment button {
+  border: 0;
+  padding: 0.5rem 1rem;
+  background-color: #314A5C;
+  border-radius: 3px;
+  color: #FFF;
+  letter-spacing: 1px;
+}
+
+.footer-comment button.btn-delete-comment {
+  background-color: #bb1a33;
+  border-radius: 0px;
+}
+
+.footer-comment button.btn-edit-comment {
+  background-color: #FFCC00;
+  border-radius: 0px;
+}
+
+.footer-comment button.btn-save{
+  background-color: #008F39;
+  border-radius: 0px;
 }
 
 .body-comment textarea.active {
@@ -184,34 +152,30 @@
   display: none;
 }
 
-.input-form {
-  margin-bottom: 10px;
+#addmyfavorite {
+  cursor: pointer;
 }
 
-.input-form input, .text-form textarea, .body-comment textarea {
-  width: 99%;
-  padding: 1rem;
-  border: solid 1px #777;
-  border-radius: 5px;
-  font-size: 1.2rem;
+ .isfavorite {
+   color: #bb1a33;
 }
-
-.footer-comment {
-  padding: 1rem;
-  padding-top: 0px;
-  text-align: right;
-}
-
-.footer-comment button {
-  border-radius: 5px;
-  border: 0;
-  padding: .5rem 1rem;
-  font-weight: bold;
-  color: #FFF;
-  box-shadow: 0 0 3px rgba(0,0,0,0.3);
-}
-
 @media screen and (min-width: 75em) {
+  .article-img-container {
+    height: 200px;
+  }
+
+  .recommended-container{
+    margin-top: 0;
+  }
+
+  .recommended-container .article-card {
+    margin-right: 0;
+  }
+
+  .body-comment textarea {
+    height: 90px;
+  }
+  /*
   .article-container, .comments {
     width: 70%;
   }
@@ -225,5 +189,5 @@
     width: 85%;
     margin-left: 15%;
   }
-
+*/
 }

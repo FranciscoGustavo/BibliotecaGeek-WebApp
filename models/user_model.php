@@ -1,7 +1,5 @@
 <?php
-/**
- *
- */
+
 class UserModel
 {
   /*=============================================
@@ -116,7 +114,7 @@ class UserModel
             INNER JOIN admin ON articles.admin_id = admin.admin_id
             INNER JOIN categories ON articles.categorie_id = categories.categorie_id
             INNER JOIN subcategories ON articles.subcategorie_id = subcategories.subcategorie_id
-            WHERE favorites.user_id = $userid
+            WHERE favorites.user_id = $userid LIMIT 9
     ");
 
     $elements -> execute();
@@ -135,7 +133,7 @@ class UserModel
     $elements = $conection->prepare("
     SELECT comments.comment_id, users.user_id, users.username, users.photo, comment FROM `comments`
     INNER JOIN users ON comments.user_id = users.user_id
-    WHERE comments.user_id = $user_id ORDER BY(comment_id) DESC
+    WHERE comments.user_id = $user_id ORDER BY(comment_id) DESC LIMIT 9
     ");
 
     $elements -> execute();

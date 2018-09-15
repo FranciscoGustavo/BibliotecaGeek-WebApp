@@ -71,7 +71,7 @@ function testApi(){
 
 			var email = response.email;
 			var name = response.name;
-			var photo = "http://graph.facebook.com/"+response.id+"/picture?type=large";
+			var photo = "https://graph.facebook.com/"+response.id+"/picture?type=large";
       var logupFacebook = "yes";
 
       var data = "email=" + email + "&name=" + name + "&photo=" + photo + "&logupFb=" + logupFacebook;
@@ -136,9 +136,45 @@ function testApi(){
 SALIR DE FACEBOOK
 =============================================*/
 var btnLogup = document.querySelector(".btn-logout");
+var btnLogupTwoo = document.querySelector(".btn-logout-two");
 if (btnLogup != null) {
   btnLogup.addEventListener("click",(event)=>{
     event.preventDefault();
+    FB.getLoginStatus(function(response){
+
+      if(response.status === 'connected'){
+
+       FB.logout(function(response){
+
+         deleteCookie("fblo_281378555785407");
+
+         console.log("salir");
+
+         setTimeout(function(){
+
+           window.location= home + "salir";
+
+         },500)
+
+       });
+
+       function deleteCookie(name){
+
+          document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+
+       }
+
+      }
+
+    })
+
+  });
+
+}
+
+if (btnLogupTwoo != null) {
+  btnLogupTwoo.addEventListener("click",(e)=>{
+    e.preventDefault();
     FB.getLoginStatus(function(response){
 
       if(response.status === 'connected'){

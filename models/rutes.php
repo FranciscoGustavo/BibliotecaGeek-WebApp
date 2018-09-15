@@ -7,10 +7,10 @@
 
     public function mainRute()
     {
-      return "http://localhost/bibliotecageek/";
+      return "";
     }
 
     public function dashboardRute(){
-      return "http://localhost/bibliotecageek/dashboard/";
+      return "";
     }
   }

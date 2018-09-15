@@ -6,6 +6,7 @@ class MenuCategories {
     this.btnCategories = document.querySelector(btnSelector);
     this.Categories = document.querySelector(Selector);
     if(this.Categories != null){
+      console.log("HOLA");
       this.x = window.matchMedia("(max-width: 700px)");
       this.bindEvents();
     }
@@ -16,10 +17,11 @@ class MenuCategories {
     this.x.addListener(this.myFunction); // Attach listener function on state changes
 
     this.btnCategories.addEventListener("click", ()=>{
+      console.log("HOLA");
       if (this.Categories.offsetHeight != 0){
-        this.Categories.setAttribute("style","height: 0px;");
+        this.Categories.setAttribute("style","height: 0px;  padding: 0rem;");
       } else {
-        this.Categories.setAttribute("style","height: "+ this.elementHeight +"px;");
+        this.Categories.setAttribute("style","padding: 0.5rem; height: "+ (this.elementHeight + 16)+"px;");
       }
 
     });
@@ -38,6 +40,7 @@ class MenuCategories {
   initialize(){
     this.elementHeight = this.Categories.offsetHeight;
     this.Categories.setAttribute("style","height: 0px;");
+    console.log(this.elementHeight);
   }
 
 }

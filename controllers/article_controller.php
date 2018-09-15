@@ -75,21 +75,6 @@ class ArticleController
   }
 
   /*=============================================
-    ARREGLA LA FECHA
-  =============================================*/
-  static public function timesTampData($fecha){
-    $timestamp = strtotime($fecha);
-    $meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-
-    $dia = date('d', $timestamp);
-    $mes = date('m', $timestamp) - 1;
-    $year = date('Y', $timestamp);
-
-    $fecha = "$dia/" . $meses[$mes] . "/$year";
-    return $fecha;
-  }
-
-  /*=============================================
     MUESTRA ARTICULOS RECOMENDADOS
   =============================================*/
   static public function showArticleRand($item, $value){

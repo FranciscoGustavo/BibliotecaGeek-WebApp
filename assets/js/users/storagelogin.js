@@ -4,7 +4,10 @@
 class Storage {
 	constructor(selector) {
 		this.form = document.querySelector(selector);
-		this.bindEvents();
+		
+		if (this.form != null) {
+			this.bindEvents();
+		}
 	}
 
 	bindEvents(){

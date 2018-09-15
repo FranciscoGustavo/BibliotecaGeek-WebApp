@@ -51,3 +51,18 @@ class AddMyFavorite {
   }
 
 }
+
+addFavoriteSingIn = document.querySelector(".sing_in");
+
+if (addFavoriteSingIn != null) {
+  console.log("HOLA");
+  addFavoriteSingIn.addEventListener("click", ()=>{
+    console.log("HOLA 2");
+    document.querySelector(".login").click();
+  });
+} else {
+  /*=============================================
+    AGREGAR ARTICULOS A FAVORITOS
+  =============================================*/
+  new AddMyFavorite("#addmyfavorite");
+}

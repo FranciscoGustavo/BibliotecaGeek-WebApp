@@ -11,13 +11,19 @@ class ValidateForm {
 
 		this.form = document.querySelector(selector);
 		this.errors = document.querySelector(errorsSelector);
-		this.inputs = this.form.querySelectorAll("input");
 
 		this.expression = null;
-		this.bindEvents();
+
+		if (this.form != null) {
+			this.inputs = this.form.querySelectorAll("input");
+			this.bindEvents();
+		}
 	}
 
 	bindEvents(){
+		/*=============================================
+			VALIDA EL FORMULARIO DE REGISTRO
+		=============================================*/
 		this.form.addEventListener("submit",(event)=>{
 			event.preventDefault();
 
@@ -27,17 +33,16 @@ class ValidateForm {
 			if (this.form.logupUsername != null) {
 				if (this.form.logupUsername.value != "") {
 
-					this.expression = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*$/;
+					this.expression = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9 ]*$/;
 
 					if(!this.expression.test(this.form.logupUsername.value)){
-
-						this.showErrors("No se permiten números ni caracteres especiales");
+						this.showErrors("warning", "No se permiten números ni caracteres especiales");
 						return false;
 
 					}
 
 				} else {
-					this.showErrors("Ningun campo puede ir vacio");
+					this.showErrors("error", "Ningun campo puede ir vacio");
 					return false;
 				}
 			}
@@ -51,18 +56,18 @@ class ValidateForm {
 
 				if(!this.expression.test(this.form.logupEmail.value)){
 
-					this.showErrors("Ingrese un correo valido");
+					this.showErrors("warning", "Ingrese un correo valido");
 					return false;
 
 				}
 
 				if (!this.ajax) {
-					this.showErrors("Este correo ya fue registrado");
+					this.showErrors("error", "Este correo ya fue registrado");
 					return false;
 				}
 
 			} else {
-				this.showErrors("Ningun campo puede ir vacio");
+				this.showErrors("error","Ningun campo puede ir vacio");
 				return false;
 			}
 
@@ -71,18 +76,21 @@ class ValidateForm {
 				VALIDAR CONTRASEÑA
 			=============================================*/
 			if(this.form.logupPassword.value != ""){
+				if(this.form.logupPassword.value.length >= 8){
 
-				this.expression = /^[a-zA-Z0-9]*$/;
+					this.expression = /^[a-zA-Z0-9]*$/;
+					if(!this.expression.test(this.form.logupPassword.value)){
+						this.showErrors("warning", "No se permiten caracteress especiales");
+						return false;
+					}
 
-				if(!this.expression.test(this.form.logupPassword.value)){
-
-					this.showErrors("No se permiten caracteress especiales");
+				} else {
+					this.showErrors("warning","La contraseña debe tener minimo, 8 caracteres");
 					return false;
-
 				}
 
 			} else {
-				this.showErrors("Ningun campo puede ir vacio");
+				this.showErrors("error","Ningun campo puede ir vacio");
 				return false;
 			}
 
@@ -90,18 +98,21 @@ class ValidateForm {
 				VALIDA TERMINOS DE USUARIO
 			=============================================*/
 			if (this.form.logupUserTerms != null) {
+
 				if(!this.form.logupUserTerms.checked){
-
-					this.showErrors("Debes aceptar los terminos de usuario");
+					this.showErrors("error", "Debes aceptar los terminos de usuario");
 					return false;
-
 				}
+
 			}
 
 			this.form.submit();
 
 		});
 
+		/*=============================================
+			LIMPIA TODOS LOS ERRORES
+		=============================================*/
 		this.inputs.forEach((input)=>{
 			input.addEventListener("focus", ()=>{
 				this.errors.classList.remove("active");
@@ -109,16 +120,17 @@ class ValidateForm {
 			});
 		});
 
+		/*=============================================
+			BUSCA QUE EL CORREO NO ESTE REGISTRADO
+		=============================================*/
 		this.form.logupEmail.addEventListener("change",()=>{
-			/*=============================================
-				BUSCA QUE EL CORREO NO ESTE REGISTRADO
-			=============================================*/
+
 			this.data = "logupEmail="+this.form.logupEmail.value;
 			this.xhr.onreadystatechange = () => {
 				if (this.xhr.readyState == this.READY_STATE_COMPLETE) {
 					if (this.xhr.status == this.OK) {
 						if (this.xhr.responseText != "true") {
-							this.showErrors(this.xhr.responseText);
+							this.showErrors("error", this.xhr.responseText);
 							this.ajax = false;
 						} else {
 							this.ajax = true;
@@ -130,12 +142,13 @@ class ValidateForm {
 			this.xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 			this.xhr.send(this.data);
 			return this.ajax;
+
 		});
 	}
 
-	showErrors(message){
+	showErrors(type, message){
 		this.errors.classList.add("active");
-		this.errors.innerHTML = "<div>" + message + "</div>";
+		this.errors.innerHTML = "<div class=" + type + ">" + message + "</div>";
 	}
 
 	objectAjax(){
